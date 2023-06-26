@@ -3,8 +3,8 @@ const users = require("./json/users.json");
 const pg = require("pg");
 const Pool = pg.Pool;
 const config = {
-  user: "vagrant",
-  password: "123",
+  user: "labber",
+  password: "labber",
   host: "localhost",
   database: "lightbnb",
 };
@@ -12,7 +12,7 @@ const config = {
 const pool = new Pool(config);
 
 pool.query(`SELECT title FROM properties LIMIT 10;`).then((response) => {
-  //console.log(response);
+  console.log(response);
 });
 
 /// Users
