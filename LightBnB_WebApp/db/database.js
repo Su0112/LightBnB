@@ -162,7 +162,7 @@ const getAllProperties = function(options, limit = 10) {
 		LIMIT $${queryParams.length};
 	`;
 
-  console.log("queryString:", queryString, "queryParams:", queryParams);
+  //console.log("queryString:", queryString, "queryParams:", queryParams);
 
   return pool.query(queryString, queryParams).then((res) => res.rows);
 };
@@ -195,7 +195,7 @@ const addProperty = function(property) {
 	 RETURNING *;
 		`;
 
-  console.log("queryString:", queryString, "values:", values);
+  //console.log("queryString:", queryString, "values:", values);
   return pool.query(queryString, values).then((result) => {
     return result.rows[0];
   });
