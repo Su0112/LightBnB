@@ -12,7 +12,7 @@ const config = {
 const pool = new Pool(config);
 
 pool.query(`SELECT title FROM properties LIMIT 10;`).then((response) => {
-  console.log(response);
+  //console.log(response);
 });
 
 /// Users
@@ -23,19 +23,21 @@ pool.query(`SELECT title FROM properties LIMIT 10;`).then((response) => {
  * @return {Promise<{}>} A promise to the user.
  */
 const getUserWithEmail = function(email) {
-  let resolvedUser = null;
-  for (const userId in users) {
-    const user = users[userId];
-    // if (user?.email.toLowerCase() === email?.toLowerCase()) {
-    //   resolvedUser = user;
-    if (user && email) {
-      //write the above code if it doesnt work
-      if (user.email.toLowerCase() === email.toLowerCase()) {
-        resolvedUser = user;
-      }
-    }
-  }
-  return Promise.resolve(resolvedUser);
+  return pool
+    .query(
+      `
+			SELECT * 
+			FROM users
+			WHERE email = $1`,
+      [email]
+    )
+    .then((result) => {
+      console.log("result,row", result.rows);
+      return result.rows[0];
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
 };
 
 /**
@@ -67,7 +69,7 @@ const addUser = function(user) {
  * @return {Promise<[{}]>} A promise to the reservations.
  */
 const getAllReservations = function(guest_id, limit = 10) {
-  return getAllProperties(null, 2);
+  return getAllProperties(null);
 };
 
 /// Properties
@@ -82,7 +84,7 @@ const getAllProperties = (options, limit = 10) => {
   return pool
     .query(`SELECT * FROM properties LIMIT $1`, [limit])
     .then((result) => {
-      console.log(result.rows);
+      //console.log(result.rows);
       return result.rows;
     })
     .catch((err) => {
