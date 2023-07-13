@@ -12,8 +12,7 @@ const config = {
 
 const pool = new Pool(config);
 
-pool.query(`SELECT title FROM properties LIMIT 10;`).then((response) => {
-});
+
 
 /// Users
 
