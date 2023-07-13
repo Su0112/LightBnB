@@ -141,9 +141,10 @@ const getAllProperties = function(options, limit = 10) {
         } AND cost_per_night <= $${queryParams.length} `;
     }
   }
-
+  queryString += `GROUP BY properties.id\n`;
   if (options.minimum_rating) {
     queryParams.push(options.minimum_rating);
+    queryString += `HAVING avg(property_reviews.rating) >= $${queryParams.length} `;
     if (queryParams.length === 1) {
       queryString += `WHERE avg(property_reviews.rating) >= $${queryParams.length} `;
     } else {
