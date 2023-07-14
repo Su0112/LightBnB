@@ -1,8 +1,5 @@
-const properties = require("./json/properties.json");
-const users = require("./json/users.json");
 const pg = require("pg");
 const Pool = pg.Pool;
-const { query } = require("express");
 const config = {
   user: "labber",
   password: "labber",
